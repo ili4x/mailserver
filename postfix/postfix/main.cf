@@ -29,14 +29,14 @@ smtpd_sasl_authenticated_header = yes
 #smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
  
 # Uncomment if using a purchased SSL certificate.
-smtpd_tls_cert_file=/etc/certs/mx.orn.ru/$HOSTNAME/cert.pem
-smtpd_tls_key_file=/etc/certs/mx.orn.ru/$HOSTNAME/privkey.pem
+smtpd_tls_cert_file=/etc/certs/$HOSTNAME/cert.pem
+smtpd_tls_key_file=/etc/certs/$HOSTNAME/privkey.pem
  
 # The snakeoil self-signed certificate has no need for a CA file. But
 # if you are using your own SSL certificate, then you probably have
 # a CA certificate bundle from your provider. The path to that goes
 # here.
-smtpd_tls_CAfile=/etc/certs/mx.orn.ru/$HOSTNAME/fullchain.pem
+smtpd_tls_CAfile=/etc/certs/$HOSTNAME/fullchain.pem
  
 # Ensure we're not using no-longer-secure protocols.
 smtpd_tls_mandatory_protocols=!SSLv2,!SSLv3

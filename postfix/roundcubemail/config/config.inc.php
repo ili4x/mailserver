@@ -99,7 +99,7 @@ $config['plugins'] = ['attachment_reminder', 'managesieve', 'newmail_notifier', 
 
 // the default locale setting (leave empty for auto-detection)
 // RFC1766 formatted language name like en_US, de_DE, de_CH, fr_FR, pt_BR
-$config['language'] = '$LANG';
+$config['language'] = '$RC_LANG';
 
 // Make use of the built-in spell checker.
 $config['enable_spellcheck'] = true;

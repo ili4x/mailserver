@@ -21,6 +21,7 @@ RUN echo DOMAINNAME=$DOMAINNAME HOSTNNAME=$HOSTNAME
 RUN apt-get update && \
     apt-get install -y wget postfix-mysql \
     dovecot-mysql dovecot-imapd dovecot-pop3d dovecot-lmtpd dovecot-sieve dovecot-managesieved \
+    spamassassin spamc \
     php-imap php-curl php-ldap php-imagick php-zip rsyslog \
     roundcube \
     libclass-dbi-mysql-perl liblockfile-simple-perl fetchmail \
@@ -74,6 +75,8 @@ COPY roundcubemail/index.php /var/www/html/
 RUN mkdir -p /etc/mail/postfixadmin/
 COPY fetchmail/fetchmail.conf /etc/mail/postfixadmin/
 COPY fetchmail/fetchmail /etc/cron.d/
+COPY spamassassin/local.cf /etc/spamassassin/local.cf
+COPY spamassassin/spamassassin /etc/default/spamassassin
 RUN mkdir -p /var/lock/fetchmail
 RUN rm /var/www/html/index.html
 RUN ln -s /var/www/html/postfixadmin-postfixadmin-3.3.13/ADDITIONS/fetchmail.pl /usr/sbin/fetchmail.pl
@@ -96,7 +99,7 @@ RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/dovecot/dovecot.conf
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/dovecot/conf.d/10-ssl.conf
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/postfix/main.cf
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /var/www/html/mail/config/config.inc.php
-RUN sed -i -- "s/\$LANG/$LANG/g" /var/www/html/mail/config/config.inc.php
+RUN sed -i -- "s/\$RC_LANG/$RC_LANG/g" /var/www/html/mail/config/config.inc.php
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/apache2/sites-available/000-default-manual.conf
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/apache2/sites-available/000-ssl.conf
 RUN sed -i -- "s/\$TITLE/$TITLE/g" /var/www/html/mail/config/config.inc.php
