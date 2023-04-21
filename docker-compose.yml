@@ -18,6 +18,7 @@ services:
         - HOSTNAME=${HOSTNAME}
         - LOGO_SVG=${LOGO_SVG}
         - TITLE=${TITLE}
+        - CLAMAV_USE_TOR=${CLAMAV_USE_TOR}
     container_name: mailserver
     domainname: ${DOMAINNAME}
     hostname: ${HOSTNAME}

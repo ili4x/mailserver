@@ -16,6 +16,12 @@ ENV LOGO_SVG $LOGO_SVG
 ARG TITLE
 ENV TTILE $TITLE
 
+ARG CLAMAV_USE_TOR
+ENV CLAMAV_USE_TOR $CLAMAV_USE_TOR
+
+ARG USE_LE_CERTS
+ENV USE_LE_CERTS $USE_LE_CERTS
+
 RUN echo DOMAINNAME=$DOMAINNAME HOSTNNAME=$HOSTNAME
 
 RUN apt-get update && \
@@ -27,7 +33,6 @@ RUN apt-get update && \
     libclass-dbi-mysql-perl liblockfile-simple-perl fetchmail \
     mysql-server \
     mc vim \
-    certbot python3-certbot-apache \
     telnet nano ca-certificates \
     mailutils dnsutils systemd htop mc \
     sasl2-bin opendkim opendkim-tools && \
@@ -49,6 +54,8 @@ RUN apt-get update && \
     tar -C /var/www/html/mail/plugins/ -xzf 1.0.13.tar.gz && \
     mv /var/www/html/mail/plugins/fetchmail-1.0.13/ /var/www/html/mail/plugins/fetchmail && \
     chmod 775 /var/log/ 
+
+RUN test "$USE_LE_CERTS" == "yes" && apt install certbot python3-certbot-apache || echo "Skip Certbot"
 
 #postfixadmin
 
@@ -77,6 +84,7 @@ COPY fetchmail/fetchmail.conf /etc/mail/postfixadmin/
 COPY fetchmail/fetchmail /etc/cron.d/
 COPY spamassassin/local.cf /etc/spamassassin/local.cf
 COPY spamassassin/spamassassin /etc/default/spamassassin
+COPY dovecot/spamassassin.sieve /etc/dovecot/sieve/spamassassin.sieve
 RUN mkdir -p /var/lock/fetchmail
 RUN rm /var/www/html/index.html
 RUN ln -s /var/www/html/postfixadmin-postfixadmin-3.3.13/ADDITIONS/fetchmail.pl /usr/sbin/fetchmail.pl
@@ -93,7 +101,7 @@ RUN sed -i.bak "/^upload_max_filesize = /s/=.*/= 50M/" /etc/php/7.4/apache2/php.
 
 
 RUN echo DOMAINNAME=$DOMAINNAME
-RUN sed -i -- "s/\$ADMIN_USER/$ADMIN_USER/g" /etc/dovecot/dovecot.conf
+RUN sed -i -- "s/\$ADMIN_USERNAME/$ADMIN_USERNAME/g" /etc/dovecot/dovecot.conf
 RUN sed -i -- "s/\$DOMAINNAME/$DOMAINNAME/g" /etc/dovecot/dovecot.conf
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/dovecot/dovecot.conf
 RUN sed -i -- "s/\$HOSTNAME/$HOSTNAME/g" /etc/dovecot/conf.d/10-ssl.conf

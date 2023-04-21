@@ -13,16 +13,18 @@ chmod 775 /var/log/
 
 cat /etc/php/7.4/apache2/php.ini | grep timezone | grep -ve "^;" || echo "date.timezone=$TIMEZONE" >>  /etc/php/7.4/apache2/php.ini
 
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "No mysql database found, initializing!"
     mysqld --initialize-insecure
 fi
 
+echo "# Starting MySQL"
 /etc/init.d/mysql start;
 
 
 if [ ! -d "/var/lib/mysql/mail" ]; then
-    echo "No mail database found, creating!"
+    echo "# No mail database found, creating!"
     mysql -e "create database if not exists mail;"
     mysql -e "CREATE USER 'mail'@'localhost' IDENTIFIED BY 'mail';";
     mysql -e "GRANT ALL PRIVILEGES ON mail.* TO 'mail'@'localhost';"
@@ -37,7 +39,7 @@ if [ ! -d "/var/lib/mysql/mail" ]; then
 fi
 
 if [ ! -d "/var/lib/mysql/roundcube" ]; then
-    echo "No roundcube database found, creating!"
+    echo "# No roundcube database found, creating!"
     mysql -e "create database if not exists roundcube;"
     mysql -e "CREATE USER 'roundcube'@'localhost' IDENTIFIED BY 'roundcube';";
     mysql -e "GRANT ALL PRIVILEGES ON roundcube.* TO 'roundcube'@'localhost';"
@@ -197,7 +199,6 @@ fi
 #############
 echo "Starting services..."
 /etc/init.d/opendkim start;/etc/init.d/postfix start;/etc/init.d/rsyslog start;/etc/init.d/cron start;/etc/init.d/spamassassin start
-
 
 echo Starting dovecot
 /usr/sbin/dovecot -F
