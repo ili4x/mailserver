@@ -158,7 +158,6 @@ postconf -e smtpd_reject_unlisted_recipient=no
 postmap /etc/postfix/transport
 
 #SSL
-test -d /etc/certs && rm /etc/certs
 if [ "$USE_LE_CERTS" == "yes" ] ; then
     /etc/init.d/apache2 start
     test -f /etc/apache2/sites-enabled/000-ssl.conf && rm /etc/apache2/sites-enabled/000-ssl.conf
@@ -167,11 +166,9 @@ if [ "$USE_LE_CERTS" == "yes" ] ; then
     ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 
-    ln -s /etc/letsencrypt/live/ /etc/certs
     test -f /etc/letsencrypt/live/$HOSTNAME/README || (certbot --apache -d $HOSTNAME --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect)
     # && certbot renew --dry-run)
 else
-    ln -s /etc/certs_ext /etc/certs
     test -f /etc/apache2/sites-enabled/000-ssl.conf || ln -s /etc/apache2/sites-available/000-ssl.conf /etc/apache2/sites-enabled/000-ssl.conf
     test -f /etc/apache2/mods-enabled/rewrite.load || ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
     test -f /etc/apache2/mods-enabled/ssl.load || ln -s /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/ssl.load

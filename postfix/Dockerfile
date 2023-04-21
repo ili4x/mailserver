@@ -90,7 +90,7 @@ RUN rm /var/www/html/index.html
 RUN ln -s /var/www/html/postfixadmin-postfixadmin-3.3.13/ADDITIONS/fetchmail.pl /usr/sbin/fetchmail.pl
 COPY apache/000-default.conf /etc/apache2/sites-available/000-default-manual.conf
 COPY apache/000-ssl.conf /etc/apache2/sites-available/
-
+RUN ln -s /etc/letsencrypt/live/ /etc/certs
 
 COPY logo/*$LOGO_SVG /var/www/html/mail/skins/elastic/images/
 RUN test -f /var/www/html/mail/skins/elastic/images/$LOGO_SVG && mv /var/www/html/mail/skins/elastic/images/$LOGO_SVG /var/www/html/mail/skins/elastic/images/logo.svg || echo No logo..

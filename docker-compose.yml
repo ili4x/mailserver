@@ -38,6 +38,6 @@ services:
       - ${DATA_DIR}/mysql:/var/lib/mysql
       - ${DATA_DIR}/log:/var/log
       - ${DATA_DIR}/dkim:/etc/opendkim/domainkeys
-      - ${DATA_DIR}/certs:/etc/certs_ext
+      - ${DATA_DIR}/certs:/etc/letsencrypt/live
     networks:
       net:
