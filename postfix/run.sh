@@ -169,7 +169,7 @@ if [ "$USE_LE_CERTS" == "yes" ] ; then
     ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 
-    test -f /etc/letsencrypt/live/$HOSTNAME/README || (certbot --apache -d $HOSTNAME --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect)
+    certbot --apache -d $HOSTNAME --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect
     # && certbot renew --dry-run)
 else
     ln -s /etc/certs_ext /etc/certs
