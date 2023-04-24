@@ -18,7 +18,8 @@ services:
         - HOSTNAME=${HOSTNAME}
         - LOGO_SVG=${LOGO_SVG}
         - TITLE=${TITLE}
-        - CLAMAV_USE_TOR=${CLAMAV_USE_TOR}
+        - USE_LE_CERTS=${USE_LE_CERTS}
+        - RC_LANG=${RC_LANG}
     container_name: mailserver
     domainname: ${DOMAINNAME}
     hostname: ${HOSTNAME}
@@ -38,6 +39,6 @@ services:
       - ${DATA_DIR}/mysql:/var/lib/mysql
       - ${DATA_DIR}/log:/var/log
       - ${DATA_DIR}/dkim:/etc/opendkim/domainkeys
-      - ${DATA_DIR}/certs:/etc/letsencrypt/live
+      - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
     networks:
       net:
