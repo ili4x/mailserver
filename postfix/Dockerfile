@@ -55,7 +55,7 @@ RUN apt-get update && \
     mv /var/www/html/mail/plugins/fetchmail-1.0.13/ /var/www/html/mail/plugins/fetchmail && \
     chmod 775 /var/log/ 
 
-RUN test "$USE_LE_CERTS" == "yes" && apt install certbot python3-certbot-apache || echo "Skip Certbot"
+RUN test "x$USE_LE_CERTS" == "xyes" && apt install certbot python3-certbot-apache || echo "Skip Certbot"
 
 #postfixadmin
 
