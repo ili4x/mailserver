@@ -20,6 +20,7 @@ services:
         - TITLE=${TITLE}
         - USE_LE_CERTS=${USE_LE_CERTS}
         - RC_LANG=${RC_LANG}
+        - ADMIN_USERNAME=${ADMIN_USERNAME}
     container_name: mailserver
     domainname: ${DOMAINNAME}
     hostname: ${HOSTNAME}
