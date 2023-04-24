@@ -32,10 +32,10 @@ RUN apt-get update && \
     dovecot-mysql dovecot-imapd dovecot-pop3d dovecot-lmtpd dovecot-sieve dovecot-managesieved \
     spamassassin spamc \
     php-imap php-curl php-ldap php-imagick php-zip rsyslog \
-    roundcube \
+    roundcube aspell-ru \
     libclass-dbi-mysql-perl liblockfile-simple-perl fetchmail \
     mysql-server \
-    mc vim \
+    vim \
     telnet nano ca-certificates \
     mailutils dnsutils systemd htop mc \
     sasl2-bin opendkim opendkim-tools && \
