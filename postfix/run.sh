@@ -63,7 +63,7 @@ postconf -e mydestination="$MYHOSTNAME, localhost"
 #  opendkim
 #############
 if [[ -z "$(find /etc/opendkim/domainkeys -iname *.private)" ]]; then
-    opendkim-genkey -D /etc/opendkim/domainkeys/ -d $(hostname -d) -s $(hostname)
+    opendkim-genkey -b 1024 -D /etc/opendkim/domainkeys/ -d $(hostname -d) -s $(hostname)
 fi
 if [[ ! -z "$(find /etc/opendkim/domainkeys -iname *.private)" ]]; then
     # /etc/postfix/main.cf

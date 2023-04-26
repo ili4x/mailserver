@@ -89,7 +89,7 @@ $config['product_name'] = '$TITLE';
 // 2 - one identity with possibility to edit all params
 // 3 - one identity with possibility to edit all params but not email address
 // 4 - one identity with possibility to edit only signature
-$config['identities_level'] = 1;
+$config['identities_level'] = 0;
 
 // ----------------------------------
 // PLUGINS
