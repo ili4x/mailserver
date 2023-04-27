@@ -41,5 +41,6 @@ services:
       - ${DATA_DIR}/log:/var/log
       - ${DATA_DIR}/dkim:/etc/opendkim/domainkeys
       - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
+      - ${BACKUP_DIR}/:/backup
     networks:
       net:

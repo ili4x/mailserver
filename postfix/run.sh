@@ -52,6 +52,9 @@ if [ ! -d "/var/lib/mysql/roundcube" ]; then
 
 fi
 
+echo "$BACKUP_CRON_STRING" root /backup.sh > /etc/cron.d/backup
+
+
 if [ -z "$MYHOSTNAME" ]; then
     MYHOSTNAME="$HOSTNAME.$DOMAINNAME"
 fi

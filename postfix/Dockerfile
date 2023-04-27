@@ -77,6 +77,8 @@ RUN chmod a+w /tmp/roundcube
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
+COPY backup.sh /backup.sh
+RUN chmod +x /backup.sh
 COPY dovecot /etc/dovecot
 COPY postfix /etc/postfix
 COPY postfixadmin /var/www/html/postfixadmin
