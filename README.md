@@ -8,6 +8,7 @@ Based on [kipkaev55/postfix-dovecot-roundcube](https://github.com/kipkaev55/post
 * Added fetchmail for fetching mail from other POP3/IMAP servers (user settings in Roundcube)
 * Added certbot. Using Letsencrypt certs for apache/postfix/dovecot.
 * Added spamassassin.
+* Added backup script.
 ### How to use
 * Install [docker-compose](https://docs.docker.com/compose/install/)
 * Copy .env.example and custom it
