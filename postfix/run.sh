@@ -204,5 +204,8 @@ fi
 echo "Starting services..."
 /etc/init.d/opendkim start;/etc/init.d/postfix start;/etc/init.d/rsyslog start;/etc/init.d/cron start;/etc/init.d/spamassassin start
 
+#updatind dkim table on start
+touch /tmp/neetupdatedkim
+
 echo Starting dovecot
 /usr/sbin/dovecot -F

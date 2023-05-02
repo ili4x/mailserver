@@ -1,0 +1,13 @@
+--- /var/www/html/postfixadmin/public/edit.php.orig	2023-04-28 10:46:32.543774730 +0000
++++ /var/www/html/postfixadmin/public/edit.php	2023-04-28 10:43:04.079215084 +0000
+@@ -166,6 +166,10 @@
+     $form_fields = $handler->getStruct(); # refresh $form_fields - set() might have changed something
+ 
+     if ($error != 1) {
++        if ($_POST["table"] == "domain") {
++		//adding new domain, add dkim
++		file_put_contents("/tmp/neetupdatedkim", 1);
++	}
+         if (!$handler->save()) {
+             $errormsg = $handler->errormsg;
+         } else {

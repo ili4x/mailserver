@@ -35,7 +35,7 @@ RUN apt-get update && \
     roundcube aspell-ru \
     libclass-dbi-mysql-perl liblockfile-simple-perl fetchmail \
     mysql-server \
-    vim \
+    vim patch \
     telnet nano ca-certificates \
     mailutils dnsutils systemd htop mc \
     sasl2-bin opendkim opendkim-tools && \
@@ -79,6 +79,13 @@ COPY run.sh /run.sh
 RUN chmod +x /run.sh
 COPY backup.sh /backup.sh
 RUN chmod +x /backup.sh
+
+COPY check_dkim_domains.sh /check_dkim_domains.sh
+RUN chmod +x /check_dkim_domains.sh
+
+
+
+
 COPY dovecot /etc/dovecot
 COPY postfix /etc/postfix
 COPY postfixadmin /var/www/html/postfixadmin
@@ -87,6 +94,7 @@ COPY roundcubemail/index.php /var/www/html/
 RUN mkdir -p /etc/mail/postfixadmin/
 COPY fetchmail/fetchmail.conf /etc/mail/postfixadmin/
 COPY fetchmail/fetchmail /etc/cron.d/
+COPY postfixadmin/check_dkim_domains /etc/cron.d/
 COPY spamassassin/local.cf /etc/spamassassin/local.cf
 COPY spamassassin/spamassassin /etc/default/spamassassin
 COPY dovecot/spamassassin.sieve /etc/dovecot/sieve/spamassassin.sieve
@@ -96,6 +104,9 @@ RUN ln -s /var/www/html/postfixadmin-postfixadmin-3.3.13/ADDITIONS/fetchmail.pl 
 COPY apache/000-default.conf /etc/apache2/sites-available/000-default-manual.conf
 COPY apache/000-ssl.conf /etc/apache2/sites-available/
 RUN ln -s /etc/letsencrypt/live/ /etc/certs
+
+COPY postfixadmin-edit.patch /postfixadmin-edit.patch
+RUN patch /var/www/html/postfixadmin/public/edit.php /postfixadmin-edit.patch
 
 COPY logo/*$LOGO_SVG /var/www/html/mail/skins/elastic/images/
 RUN test -f /var/www/html/mail/skins/elastic/images/$LOGO_SVG && mv /var/www/html/mail/skins/elastic/images/$LOGO_SVG /var/www/html/mail/skins/elastic/images/logo.svg || echo No logo..
