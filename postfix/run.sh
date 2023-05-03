@@ -9,7 +9,7 @@ chown -R mysql /var/lib/mysql
 chown -R mysql /var/log/mysql/
 chown :syslog /var/log/
 chmod 775 /var/log/
-
+chmod a+w /etc/dovecot/sieve
 
 cat /etc/php/7.4/apache2/php.ini | grep timezone | grep -ve "^;" || echo "date.timezone=$TIMEZONE" >>  /etc/php/7.4/apache2/php.ini
 

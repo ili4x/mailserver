@@ -90,6 +90,7 @@ COPY dovecot /etc/dovecot
 COPY postfix /etc/postfix
 COPY postfixadmin /var/www/html/postfixadmin
 COPY roundcubemail/config /var/www/html/mail/config
+COPY roundcubemail/plugins /var/www/html/mail/plugins
 COPY roundcubemail/index.php /var/www/html/
 RUN mkdir -p /etc/mail/postfixadmin/
 COPY fetchmail/fetchmail.conf /etc/mail/postfixadmin/
