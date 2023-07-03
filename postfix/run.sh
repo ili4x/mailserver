@@ -178,7 +178,7 @@ if [ "$USE_LE_CERTS" == "yes" ] ; then
     fi
 
 
-    certbot --apache -d $HOSTNAME $LE_ALIASES --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect
+    certbot --apache -d $HOSTNAME $LE_ALIASES --expand --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect
     # && certbot renew --dry-run)
 else
     ln -s /etc/certs_ext /etc/certs
