@@ -171,8 +171,14 @@ if [ "$USE_LE_CERTS" == "yes" ] ; then
     test -f /etc/apache2/sites-enabled/000-default.conf && rm /etc/apache2/sites-enabled/000-default.conf
     ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
+    if [ -z "$MYHOSTNAME" ]; then
+	LE_ALIASES=""
+    else
+	LE_ALIASES="-d `echo $DOMAIN_ALIASES | sed s/,/\ -d\ /g`"
+    fi
 
-    certbot --apache -d $HOSTNAME --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect
+
+    certbot --apache -d $HOSTNAME $LE_ALIASES --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect
     # && certbot renew --dry-run)
 else
     ln -s /etc/certs_ext /etc/certs
