@@ -15,6 +15,7 @@ services:
       context: ./postfix
       args:
         - DOMAINNAME=${DOMAINNAME}
+        - DOMAIN_ALIASES=${DOMAIN_ALIASES}
         - HOSTNAME=${HOSTNAME}
         - LOGO_SVG=${LOGO_SVG}
         - TITLE=${TITLE}
