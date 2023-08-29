@@ -20,6 +20,7 @@ services:
         - LOGO_SVG=${LOGO_SVG}
         - TITLE=${TITLE}
         - USE_LE_CERTS=${USE_LE_CERTS}
+        - FORCE_APACHE_SSL_MODULES=${FORCE_APACHE_SSL_MODULES}
         - RC_LANG=${RC_LANG}
         - ADMIN_USERNAME=${ADMIN_USERNAME}
     container_name: mailserver
@@ -37,6 +38,7 @@ services:
     env_file:
       - .env
     volumes:
+      - ${DATA_DIR}/spool:/var/spool/postfix
       - ${DATA_DIR}/vmail:/var/vmail
       - ${DATA_DIR}/mysql:/var/lib/mysql
       - ${DATA_DIR}/log:/var/log

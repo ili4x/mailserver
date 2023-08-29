@@ -180,6 +180,16 @@ if [ "$USE_LE_CERTS" == "yes" ] ; then
 
     certbot --apache -d $HOSTNAME $LE_ALIASES --expand --non-interactive --agree-tos -m webmaster@$HOSTNAME --redirect
     # && certbot renew --dry-run)
+
+    test -f /etc/apache2/sites-enabled/000-ssl.conf || ln -s /etc/apache2/sites-available/000-ssl.conf /etc/apache2/sites-enabled/000-ssl.conf
+
+    if [ "$FORCE_APACHE_SSL_MODULES" == "yes" ] ; then
+        test -f /etc/apache2/sites-enabled/000-ssl.conf || ln -s /etc/apache2/sites-available/000-ssl.conf /etc/apache2/sites-enabled/000-ssl.conf
+	test -f /etc/apache2/mods-enabled/rewrite.load || ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
+        test -f /etc/apache2/mods-enabled/ssl.load || ln -s /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/ssl.load
+    fi
+
+
 else
     ln -s /etc/certs_ext /etc/certs
     test -f /etc/apache2/sites-enabled/000-ssl.conf || ln -s /etc/apache2/sites-available/000-ssl.conf /etc/apache2/sites-enabled/000-ssl.conf
