@@ -36,6 +36,7 @@ RUN apt-get update && \
     libclass-dbi-mysql-perl liblockfile-simple-perl fetchmail \
     mysql-server \
     vim patch \
+    curl \
     telnet nano ca-certificates \
     mailutils dnsutils systemd htop mc \
     sasl2-bin opendkim opendkim-tools && \
