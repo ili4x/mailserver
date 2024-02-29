@@ -6,13 +6,20 @@ if [ "x$BACKUP_DAYS" == "x" ] ; then
         BACKUP_DAYS=7
 fi
 
-find /backup/ -type f -mtime +$BACKUP_DAYS -name '*.gz' -execdir rm -- '{}' \;
+cd /backup
+
+echo Removing old...
+
+find /backup/ -type f -mtime +$BACKUP_DAYS -name '*.gz' -execdir rm '{}' \;
 
 FN=backup-`date +"%Y-%m-%d_%H-%M-%S"`.tar.gz
 
-cd /backup
+echo Making sql dump...
 
 mysqldump --databases mail roundcube > backup.sql
+
+echo TARing...
+
 tar -czf /backup/$FN /var/vmail backup.sql &> /dev/null
 rm backup.sql
 
